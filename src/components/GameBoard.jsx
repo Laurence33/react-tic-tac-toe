@@ -5,17 +5,17 @@ const initialBoard = [
   [null, null, null],
   [null, null, null],
 ];
-export default function GameBoard() {
+export default function GameBoard({ switchPlayer, activePlayer }) {
   const [gameBoard, setGameBoard] = useState(initialBoard);
 
   function handleBtnClick(rowIndex, colIndex) {
     if (gameBoard[rowIndex][colIndex] === null) {
       setGameBoard((prevGameBoard) => {
         const newGameBoard = Object.assign([], prevGameBoard);
-        newGameBoard[rowIndex][colIndex] = 'X';
-        console.log(newGameBoard);
+        newGameBoard[rowIndex][colIndex] = activePlayer;
         return newGameBoard;
       });
+      switchPlayer();
     }
   }
   return (
