@@ -44,7 +44,7 @@ function App() {
       firstSquareSymbol === thirdSquareSymbol
     ) {
       // there is a winner
-      winner = firstSquareSymbol;
+      winner = players[firstSquareSymbol];
     }
   }
 

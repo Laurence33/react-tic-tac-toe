@@ -5,7 +5,9 @@ export default function Player({ name, symbol, isActive, onPlayerSave }) {
 
   function editPlayer() {
     setIsEditing((editing) => !editing);
-    onPlayerSave(symbol, nameVal);
+    if (isEditing) {
+      onPlayerSave(symbol, nameVal);
+    }
   }
 
   function handleNameChange(e) {
