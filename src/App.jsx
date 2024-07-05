@@ -18,6 +18,10 @@ function getActivePlayer(gameTurns) {
 }
 
 function App() {
+  const [players, setPlayers] = useState({
+    O: 'Player 1',
+    X: 'Player 2',
+  });
   const [gameTurns, setGameTurns] = useState([]);
   const activePlayer = getActivePlayer(gameTurns);
 
@@ -46,7 +50,7 @@ function App() {
 
   const hasDraw = gameTurns.length === 9 && !winner;
 
-  function restart() {
+  function handleRestart() {
     setGameTurns([]);
   }
   function handleSelectSquare(rowIndex, colIndex) {
@@ -64,15 +68,35 @@ function App() {
       return newGameTurns;
     });
   }
+
+  function handlePlayerSave(symbol, name) {
+    setPlayers((prevPlayers) => {
+      return {
+        ...prevPlayers,
+        [symbol]: name,
+      };
+    });
+  }
+
   return (
     <main>
       <div id="game-container">
         <ol id="players" className="highlight-player">
-          <Player name="Player 1" symbol="O" isActive={activePlayer === 'O'} />
-          <Player name="Player 2" symbol="X" isActive={activePlayer === 'X'} />
+          <Player
+            name="Player 1"
+            symbol="O"
+            isActive={activePlayer === 'O'}
+            onPlayerSave={handlePlayerSave}
+          />
+          <Player
+            name="Player 2"
+            symbol="X"
+            isActive={activePlayer === 'X'}
+            onPlayerSave={handlePlayerSave}
+          />
         </ol>
         {winner || hasDraw ? (
-          <GameOver winner={winner} restart={restart} />
+          <GameOver winner={winner} restart={handleRestart} />
         ) : (
           ''
         )}
